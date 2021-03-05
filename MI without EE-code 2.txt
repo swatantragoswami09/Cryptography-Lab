@@ -1,0 +1,51 @@
+#include<iostream>
+using namespace std;
+
+int gcdExt(int a, int b, int *x, int *y)
+{
+    
+    if (a == 0)
+    {
+        *x = 0, *y = 1;
+        return b;
+    }
+ 
+    int x1, y1; 
+    int gcd = gcdExt(b%a, a, &x1, &y1);
+ 
+    
+    *x = y1 - (b/a) * x1;
+    *y = x1;
+ 
+    return gcd;
+}
+ 
+ 
+
+void MUL_Inv(int a, int m)
+{
+    int x, y;
+    int g = gcdExt(a, m, &x, &y);
+    if (g != 1)
+        cout << "Inverse doesn't exist";
+    else
+    {
+        char ch;
+        int res = (x%m + m) % m;
+        cout<<"Enter the formate of ans in positive or negative:";
+        cin>>ch;
+        if(ch=='+')
+        cout << "Modular multiplicative inverse is " << res;
+        else cout<<"Modular multiplicative inverse is "<<res-26;
+    }
+}
+ 
+
+
+
+int main()
+{
+    int a = 1234, m = 4321;
+    MUL_Inv(a, m);
+    return 0;
+}
